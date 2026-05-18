@@ -1,5 +1,14 @@
 export type ProjectType = "live" | "concept";
 
+export interface IndustryCard {
+  id: string;
+  title: string;
+  description: string;
+  icon: string;
+  gradient: string;
+  accent: string;
+}
+
 export interface Project {
   id: string;
   title: string;

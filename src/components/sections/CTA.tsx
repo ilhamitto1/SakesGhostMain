@@ -11,23 +11,15 @@ export function CTA() {
   return (
     <section id="contact" className="section-padding">
       <motion.div
-        initial={{ opacity: 0, y: 32 }}
+        initial={{ opacity: 0, y: 16 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6 }}
         className="section-container"
       >
-        <div className="relative overflow-hidden rounded-3xl border border-indigo-500/20 bg-gradient-to-br from-indigo-950/50 via-ghost-deep to-purple-950/40 p-10 sm:p-14 md:p-16">
-          <motion.div
-            className="pointer-events-none absolute -right-20 -top-20 h-64 w-64 rounded-full bg-indigo-500/20 blur-[80px]"
-            animate={{ scale: [1, 1.2, 1], opacity: [0.4, 0.6, 0.4] }}
-            transition={{ duration: 6, repeat: Infinity }}
-          />
-          <motion.div
-            className="pointer-events-none absolute -bottom-20 -left-20 h-64 w-64 rounded-full bg-purple-500/15 blur-[80px]"
-            animate={{ scale: [1.2, 1, 1.2], opacity: [0.3, 0.5, 0.3] }}
-            transition={{ duration: 8, repeat: Infinity }}
-          />
+        <div className="relative overflow-hidden rounded-3xl border border-indigo-500/20 bg-gradient-to-br from-indigo-950/50 via-ghost-deep to-purple-950/40 p-8 sm:p-10 md:p-12">
+          <div className="pointer-events-none absolute -right-20 -top-20 h-48 w-48 rounded-full bg-indigo-500/15 blur-[60px] md:h-64 md:w-64 md:blur-[80px]" />
+          <div className="pointer-events-none absolute -bottom-20 -left-20 h-48 w-48 rounded-full bg-purple-500/10 blur-[60px] md:h-64 md:w-64 md:blur-[80px]" />
 
           <div className="relative text-center">
             <span className="section-label mx-auto">Get Started</span>

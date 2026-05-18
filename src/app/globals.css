@@ -65,7 +65,7 @@
   }
 
   .section-padding {
-    @apply px-5 py-20 sm:px-8 md:py-28 lg:px-12 xl:px-16;
+    @apply px-5 py-14 sm:px-8 md:py-20 lg:px-12 xl:px-16;
   }
 
   .section-container {
@@ -92,5 +92,57 @@
 
   .noise-overlay {
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  }
+
+  .hero-glow {
+    background: radial-gradient(
+      ellipse 70% 50% at 50% 50%,
+      rgba(99, 102, 241, 0.18),
+      transparent 70%
+    );
+  }
+
+  @keyframes hero-float {
+    0%,
+    100% {
+      transform: translate3d(0, 0, 0);
+    }
+    50% {
+      transform: translate3d(0, -5px, 0);
+    }
+  }
+
+  .hero-float {
+    animation: hero-float 9s ease-in-out infinite;
+    will-change: transform;
+  }
+
+  .hero-float-delay-1 {
+    animation-delay: -1.5s;
+  }
+  .hero-float-delay-2 {
+    animation-delay: -3s;
+  }
+  .hero-float-delay-3 {
+    animation-delay: -4.5s;
+  }
+  .hero-float-delay-4 {
+    animation-delay: -6s;
+  }
+}
+
+@media (max-width: 767px) {
+  .hero-float {
+    animation: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-float {
+    animation: none;
+  }
+
+  html {
+    scroll-behavior: auto;
   }
 }

@@ -16,16 +16,8 @@ const icons = [Bot, MessageSquare, Zap, GitBranch, Workflow, MessageSquare];
 export function Automation() {
   return (
     <section id="automation" className="section-padding relative overflow-hidden">
-      <motion.div
-        className="pointer-events-none absolute -left-32 top-1/2 h-96 w-96 -translate-y-1/2 rounded-full bg-blue-600/10 blur-[100px]"
-        animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.5, 0.3] }}
-        transition={{ duration: 8, repeat: Infinity }}
-      />
-      <motion.div
-        className="pointer-events-none absolute -right-32 top-1/3 h-80 w-80 rounded-full bg-purple-600/10 blur-[100px]"
-        animate={{ scale: [1.2, 1, 1.2], opacity: [0.4, 0.6, 0.4] }}
-        transition={{ duration: 10, repeat: Infinity }}
-      />
+      <div className="pointer-events-none absolute -left-32 top-1/2 h-72 w-72 -translate-y-1/2 rounded-full bg-blue-600/8 blur-[80px] md:h-96 md:w-96 md:blur-[100px]" />
+      <div className="pointer-events-none absolute -right-32 top-1/3 h-64 w-64 rounded-full bg-purple-600/8 blur-[70px] md:h-80 md:w-80 md:blur-[100px]" />
 
       <div className="section-container relative">
         <SectionHeader
@@ -81,7 +73,7 @@ export function Automation() {
             transition={{ duration: 0.6, delay: 0.1 }}
             className="relative"
           >
-            <div className="glass-card flex h-full min-h-[320px] flex-col justify-center p-8 sm:p-10">
+            <div className="glass-card flex h-full min-h-[240px] flex-col justify-center p-6 sm:min-h-[280px] sm:p-8 md:p-10">
               <div className="relative mx-auto h-48 w-full max-w-sm">
                 {[
                   { label: "Customer Message", pos: "top-0 left-0" },

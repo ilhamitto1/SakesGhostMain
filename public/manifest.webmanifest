@@ -1,0 +1,17 @@
+{
+  "name": "SalesGhost | AI Systems & Automation",
+  "short_name": "SalesGhost",
+  "description": "AI assistants, booking systems, websites and automation workflows for modern businesses.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#030308",
+  "theme_color": "#0a0f1e",
+  "icons": [
+    {
+      "src": "/images/logo.jpg",
+      "sizes": "512x512",
+      "type": "image/jpeg",
+      "purpose": "any maskable"
+    }
+  ]
+}

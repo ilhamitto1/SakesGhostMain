@@ -1,0 +1,12 @@
+# Netlify: auto-deploy on every push to the linked Git branch (main).
+# In Netlify: Site settings → Build & deploy → Continuous deployment → connect this repo.
+
+[build]
+  command = "npm run build"
+  publish = ".next"
+
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
+
+[build.environment]
+  NODE_VERSION = "20"

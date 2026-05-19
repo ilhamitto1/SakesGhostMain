@@ -2,11 +2,12 @@
 
 import { RevealOnScroll } from "@/components/ui/RevealOnScroll";
 import { WhatsAppLink } from "@/components/ui/WhatsAppLink";
+import { useLanguage } from "@/contexts/LanguageContext";
+import type { ProjectId } from "@/locales/types";
 import type { Project } from "@/lib/types";
 import { motion } from "framer-motion";
 import { ArrowUpRight, Check, ExternalLink } from "lucide-react";
 import Image from "next/image";
-import Link from "next/link";
 import { useState } from "react";
 
 interface ProjectCaseStudyProps extends Project {
@@ -27,8 +28,11 @@ export function ProjectCaseStudy({
   industry,
   reversed = false,
 }: ProjectCaseStudyProps) {
+  const { t } = useLanguage();
   const [activeIndex, setActiveIndex] = useState(0);
   const isLive = type === "live";
+  const projectCopy = t.portfolio.projects[id as ProjectId];
+  const conceptNote = projectCopy.conceptNote;
 
   return (
     <RevealOnScroll>
@@ -38,7 +42,7 @@ export function ProjectCaseStudy({
           reversed ? "lg:[direction:rtl]" : ""
         }`}
       >
-        <div className={reversed ? "lg:[direction:ltr]" : ""}>
+        <motion.div className={reversed ? "lg:[direction:ltr]" : ""}>
           <motion.div className="flex flex-wrap items-center gap-2">
             <span
               className={`inline-block rounded-full bg-gradient-to-r ${accent} px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-indigo-200`}
@@ -53,7 +57,7 @@ export function ProjectCaseStudy({
             {isLive && (
               <span className="flex items-center gap-1.5 rounded-full border border-emerald-500/25 bg-emerald-500/10 px-3 py-1 text-xs font-medium text-emerald-300">
                 <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-400" />
-                Deployed
+                {t.portfolio.badges.deployed}
               </span>
             )}
           </motion.div>
@@ -63,11 +67,8 @@ export function ProjectCaseStudy({
           </h3>
           <p className="mt-4 leading-relaxed text-slate-400">{description}</p>
 
-          {!isLive && (
-            <p className="mt-3 text-xs text-slate-500">
-              Concept experience — product direction, UX and visual systems by
-              SalesGhost. Available as a custom build for your business.
-            </p>
+          {!isLive && conceptNote && (
+            <p className="mt-3 text-xs text-slate-500">{conceptNote}</p>
           )}
 
           <ul className="mt-8 grid gap-3 sm:grid-cols-2">
@@ -89,35 +90,35 @@ export function ProjectCaseStudy({
                 rel="noopener noreferrer"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                className="btn-primary inline-flex"
+                className="btn-primary inline-flex whitespace-nowrap"
               >
-                View Live Demo
+                {t.buttons.viewLiveDemo}
                 <ExternalLink className="h-4 w-4" />
               </motion.a>
             ) : (
-              <WhatsAppLink className="btn-primary inline-flex">
-                Request Similar Build
+              <WhatsAppLink className="btn-primary inline-flex whitespace-nowrap">
+                {t.buttons.requestSimilarBuild}
                 <ArrowUpRight className="h-4 w-4" />
               </WhatsAppLink>
             )}
-            <WhatsAppLink className="btn-secondary inline-flex text-sm">
-              Discuss this system
+            <WhatsAppLink className="btn-secondary inline-flex whitespace-nowrap text-sm">
+              {t.buttons.discussSystem}
             </WhatsAppLink>
           </div>
-        </div>
+        </motion.div>
 
-        <div className={reversed ? "lg:[direction:ltr]" : ""}>
+        <motion.div className={reversed ? "lg:[direction:ltr]" : ""}>
           <motion.div
             className="relative"
             style={{ filter: `drop-shadow(0 0 40px ${glow})` }}
           >
             <div className="glass-card overflow-hidden p-3 sm:p-4">
               <div className="mb-3 flex items-center gap-2 rounded-lg bg-ghost-deep/80 px-3 py-2">
-                <div className="flex gap-1.5">
+                <motion.div className="flex gap-1.5">
                   <span className="h-2.5 w-2.5 rounded-full bg-red-500/80" />
                   <span className="h-2.5 w-2.5 rounded-full bg-yellow-500/80" />
                   <span className="h-2.5 w-2.5 rounded-full bg-green-500/80" />
-                </div>
+                </motion.div>
                 <div className="flex-1 rounded-md bg-white/5 px-3 py-1 text-center">
                   <span className="truncate text-[10px] text-slate-500 sm:text-xs">
                     {isLive && liveUrl
@@ -167,7 +168,7 @@ export function ProjectCaseStudy({
               ))}
             </div>
           </motion.div>
-        </div>
+        </motion.div>
       </div>
     </RevealOnScroll>
   );

@@ -1,17 +1,19 @@
 "use client";
 
 import { SectionHeader } from "@/components/ui/SectionHeader";
-import { WHY_ITEMS } from "@/lib/constants";
+import { useLanguage } from "@/contexts/LanguageContext";
 import { motion } from "framer-motion";
 
 export function WhySalesGhost() {
+  const { t } = useLanguage();
+
   return (
     <section id="why" className="section-padding">
       <div className="section-container">
         <SectionHeader
-          label="Why SalesGhost"
-          title="Not Just Design — Business Systems That Perform"
-          subtitle="We combine AI engineering, product thinking and conversion-focused design into one studio built for founders and growing businesses."
+          label={t.why.label}
+          title={t.why.title}
+          subtitle={t.why.subtitle}
         />
 
         <motion.div
@@ -24,7 +26,7 @@ export function WhySalesGhost() {
           }}
           className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3"
         >
-          {WHY_ITEMS.map((item, index) => (
+          {t.why.items.map((item, index) => (
             <motion.div
               key={item.title}
               initial={{ opacity: 0, y: 24 }}

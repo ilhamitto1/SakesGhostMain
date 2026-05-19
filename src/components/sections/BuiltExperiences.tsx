@@ -1,6 +1,7 @@
 "use client";
 
-import { BUILT_EXPERIENCES } from "@/lib/constants";
+import { useLanguage } from "@/contexts/LanguageContext";
+import { BUILT_EXPERIENCE_META } from "@/lib/constants";
 import { motion } from "framer-motion";
 import {
   GraduationCap,
@@ -26,6 +27,8 @@ const iconMap: Record<string, LucideIcon> = {
 };
 
 export function BuiltExperiences() {
+  const { t } = useLanguage();
+
   return (
     <div className="mt-24 rounded-3xl border border-white/[0.06] bg-gradient-to-br from-indigo-950/30 via-ghost-deep/50 to-purple-950/20 p-8 sm:p-12">
       <motion.div
@@ -34,13 +37,12 @@ export function BuiltExperiences() {
         viewport={{ once: true }}
         className="text-center"
       >
-        <span className="section-label mx-auto">Industries</span>
+        <span className="section-label mx-auto">{t.builtExperiences.label}</span>
         <h3 className="mt-4 text-2xl font-bold text-white sm:text-3xl">
-          Built Experiences Across Industries
+          {t.builtExperiences.title}
         </h3>
         <p className="mx-auto mt-3 max-w-xl text-slate-400">
-          From barbershops to academies — SalesGhost designs AI systems and digital
-          products tailored to how each business actually operates.
+          {t.builtExperiences.subtitle}
         </p>
       </motion.div>
 
@@ -50,15 +52,18 @@ export function BuiltExperiences() {
         viewport={{ once: true }}
         variants={{
           hidden: { opacity: 0 },
-          visible: { transition: { staggerChildren: 0.06 } },
+          visible: {
+            opacity: 1,
+            transition: { staggerChildren: 0.06 },
+          },
         }}
         className="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-4"
       >
-        {BUILT_EXPERIENCES.map((item) => {
+        {BUILT_EXPERIENCE_META.map((item) => {
           const Icon = iconMap[item.icon] ?? Store;
           return (
             <motion.div
-              key={item.name}
+              key={item.id}
               variants={{
                 hidden: { opacity: 0, scale: 0.92 },
                 visible: { opacity: 1, scale: 1 },
@@ -70,7 +75,7 @@ export function BuiltExperiences() {
                 <Icon className="h-5 w-5 text-indigo-300" />
               </div>
               <span className="text-sm font-medium text-slate-200">
-                {item.name}
+                {t.builtExperiences.items[item.id]}
               </span>
             </motion.div>
           );

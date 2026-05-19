@@ -1,7 +1,7 @@
 "use client";
 
 import { SectionHeader } from "@/components/ui/SectionHeader";
-import { AUTOMATION_ITEMS } from "@/lib/constants";
+import { useLanguage } from "@/contexts/LanguageContext";
 import { motion } from "framer-motion";
 import {
   Bot,
@@ -14,16 +14,18 @@ import {
 const icons = [Bot, MessageSquare, Zap, GitBranch, Workflow, MessageSquare];
 
 export function Automation() {
+  const { t } = useLanguage();
+
   return (
     <section id="automation" className="section-padding relative overflow-hidden">
       <div className="pointer-events-none absolute -left-32 top-1/2 h-72 w-72 -translate-y-1/2 rounded-full bg-blue-600/8 blur-[80px] md:h-96 md:w-96 md:blur-[100px]" />
-      <div className="pointer-events-none absolute -right-32 top-1/3 h-64 w-64 rounded-full bg-purple-600/8 blur-[70px] md:h-80 md:w-80 md:blur-[100px]" />
+      <motion.div className="pointer-events-none absolute -right-32 top-1/3 h-64 w-64 rounded-full bg-purple-600/8 blur-[70px] md:h-80 md:w-80 md:blur-[100px]" />
 
       <div className="section-container relative">
         <SectionHeader
-          label="Automation"
-          title="Intelligent Automation for Every Channel"
-          subtitle="SalesGhost builds end-to-end automation pipelines that connect your customers, CRM and business tools — without manual handoffs."
+          label={t.automation.label}
+          title={t.automation.title}
+          subtitle={t.automation.subtitle}
         />
 
         <div className="mt-14 grid gap-8 lg:grid-cols-2">
@@ -35,15 +37,12 @@ export function Automation() {
             className="glass-card p-8 sm:p-10"
           >
             <h3 className="text-xl font-semibold text-white sm:text-2xl">
-              What we automate
+              {t.automation.whatTitle}
             </h3>
-            <p className="mt-3 text-slate-400">
-              From first contact to closed deal — intelligent flows that work
-              across WhatsApp, Instagram, your website and internal tools.
-            </p>
+            <p className="mt-3 text-slate-400">{t.automation.whatDesc}</p>
 
             <div className="mt-8 flex flex-wrap gap-3">
-              {AUTOMATION_ITEMS.map((item, index) => {
+              {t.automation.items.map((item, index) => {
                 const Icon = icons[index % icons.length];
                 return (
                   <motion.span
@@ -73,27 +72,27 @@ export function Automation() {
             transition={{ duration: 0.6, delay: 0.1 }}
             className="relative"
           >
-            <div className="glass-card flex h-full min-h-[240px] flex-col justify-center p-6 sm:min-h-[280px] sm:p-8 md:p-10">
+            <motion.div className="glass-card flex h-full min-h-[240px] flex-col justify-center p-6 sm:min-h-[280px] sm:p-8 md:p-10">
               <div className="relative mx-auto h-48 w-full max-w-sm">
-                {[
-                  { label: "Customer Message", pos: "top-0 left-0" },
-                  {
-                    label: "AI Qualification",
-                    pos: "top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2",
-                  },
-                  { label: "CRM / n8n Flow", pos: "bottom-0 right-0" },
-                ].map((node, i) => (
-                  <motion.div
-                    key={node.label}
-                    initial={{ opacity: 0, y: 16 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.2 + i * 0.15 }}
-                    className={`absolute ${node.pos} glass-card px-4 py-3 text-sm font-medium text-white shadow-glow-sm`}
-                  >
-                    {node.label}
-                  </motion.div>
-                ))}
+                {t.automation.nodes.map((label, i) => {
+                  const positions = [
+                    "top-0 left-0",
+                    "top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2",
+                    "bottom-0 right-0",
+                  ];
+                  return (
+                    <motion.div
+                      key={label}
+                      initial={{ opacity: 0, y: 16 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: 0.2 + i * 0.15 }}
+                      className={`absolute ${positions[i]} glass-card px-4 py-3 text-sm font-medium text-white shadow-glow-sm`}
+                    >
+                      {label}
+                    </motion.div>
+                  );
+                })}
 
                 <svg
                   className="absolute inset-0 h-full w-full text-indigo-500/30"
@@ -129,9 +128,9 @@ export function Automation() {
               </div>
 
               <p className="mt-12 text-center text-sm text-slate-500">
-                Connected workflows across your entire customer journey
+                {t.automation.flowFooter}
               </p>
-            </div>
+            </motion.div>
           </motion.div>
         </div>
       </div>

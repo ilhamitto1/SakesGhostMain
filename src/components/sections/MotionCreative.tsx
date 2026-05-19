@@ -1,11 +1,13 @@
 "use client";
 
 import { SectionHeader } from "@/components/ui/SectionHeader";
-import { MOTION_ITEMS } from "@/lib/constants";
+import { useLanguage } from "@/contexts/LanguageContext";
 import { motion } from "framer-motion";
 import { Clapperboard, Play } from "lucide-react";
 
 export function MotionCreative() {
+  const { t } = useLanguage();
+
   return (
     <section id="creative" className="section-padding relative overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-br from-purple-950/30 via-ghost-black to-blue-950/20" />
@@ -20,14 +22,14 @@ export function MotionCreative() {
 
       <div className="section-container relative">
         <SectionHeader
-          label="Creative"
-          title="Cinematic Product & Brand Content"
-          subtitle="Beyond code — SalesGhost produces motion design and AI-powered creatives that make your product impossible to ignore."
+          label={t.creative.label}
+          title={t.creative.title}
+          subtitle={t.creative.subtitle}
           align="center"
         />
 
         <div className="mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {MOTION_ITEMS.map((item, index) => (
+          {t.creative.items.map((item, index) => (
             <motion.div
               key={item.title}
               initial={{ opacity: 0, y: 16 }}
@@ -40,13 +42,13 @@ export function MotionCreative() {
             >
               <div className="absolute -right-8 -top-8 h-32 w-32 rounded-full bg-purple-500/20 blur-2xl transition group-hover:bg-purple-500/30" />
               <div className="relative">
-                <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-purple-500/30 to-pink-500/20">
+                <motion.div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-purple-500/30 to-pink-500/20">
                   {index === 0 ? (
                     <Play className="h-6 w-6 text-purple-300" />
                   ) : (
                     <Clapperboard className="h-6 w-6 text-purple-300" />
                   )}
-                </div>
+                </motion.div>
                 <h3 className="text-lg font-semibold text-white">{item.title}</h3>
                 <p className="mt-2 text-sm text-slate-400">{item.description}</p>
               </div>
@@ -68,7 +70,7 @@ export function MotionCreative() {
           viewport={{ once: true }}
           className="mt-10 text-center text-sm text-slate-500"
         >
-          Motion reels · Product demos · Launch visuals · Social ad suites
+          {t.creative.footer}
         </motion.p>
       </div>
     </section>

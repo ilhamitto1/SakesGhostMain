@@ -1,5 +1,6 @@
 "use client";
 
+import { useLanguage } from "@/contexts/LanguageContext";
 import { motion } from "framer-motion";
 import {
   BarChart3,
@@ -11,71 +12,28 @@ import {
 } from "lucide-react";
 import { WhatsAppIcon } from "@/components/ui/WhatsAppIcon";
 
-type OrbitCard = {
-  id: string;
-  label: string;
-  sub: string;
+type OrbitId = "ai" | "wa" | "booking" | "dashboard" | "ig";
+
+const orbitLayout: {
+  id: OrbitId;
   position: string;
   floatClass: string;
   colors: string;
   icon?: LucideIcon;
   iconColor?: string;
   isWhatsApp?: boolean;
-};
-
-const orbitCards: OrbitCard[] = [
-  {
-    id: "ai",
-    label: "AI Assistant",
-    sub: "24/7 replies",
-    icon: Bot,
-    position: "left-[2%] top-[8%] sm:left-[6%] sm:top-[12%]",
-    floatClass: "hero-float",
-    colors: "border-indigo-500/30 bg-indigo-500/10",
-    iconColor: "text-indigo-300",
-  },
-  {
-    id: "wa",
-    label: "WhatsApp",
-    sub: "Automation",
-    position: "right-[2%] top-[10%] sm:right-[6%] sm:top-[14%]",
-    floatClass: "hero-float hero-float-delay-1",
-    colors: "border-emerald-500/30 bg-emerald-500/10",
-    isWhatsApp: true,
-  },
-  {
-    id: "booking",
-    label: "Booking",
-    sub: "Smart slots",
-    icon: Calendar,
-    position: "left-[0%] bottom-[28%] sm:left-[4%] sm:bottom-[30%]",
-    floatClass: "hero-float hero-float-delay-2",
-    colors: "border-purple-500/30 bg-purple-500/10",
-    iconColor: "text-purple-300",
-  },
-  {
-    id: "dashboard",
-    label: "Dashboard",
-    sub: "Live metrics",
-    icon: LayoutDashboard,
-    position: "right-[0%] bottom-[26%] sm:right-[4%] sm:bottom-[28%]",
-    floatClass: "hero-float hero-float-delay-3",
-    colors: "border-blue-500/30 bg-blue-500/10",
-    iconColor: "text-blue-300",
-  },
-  {
-    id: "ig",
-    label: "Instagram",
-    sub: "DM flows",
-    icon: Instagram,
-    position: "left-1/2 bottom-[4%] -translate-x-1/2 sm:bottom-[6%]",
-    floatClass: "hero-float hero-float-delay-4",
-    colors: "border-pink-500/30 bg-pink-500/10",
-    iconColor: "text-pink-300",
-  },
+}[] = [
+  { id: "ai", icon: Bot, position: "left-[2%] top-[8%] sm:left-[6%] sm:top-[12%]", floatClass: "hero-float", colors: "border-indigo-500/30 bg-indigo-500/10", iconColor: "text-indigo-300" },
+  { id: "wa", position: "right-[2%] top-[10%] sm:right-[6%] sm:top-[14%]", floatClass: "hero-float hero-float-delay-1", colors: "border-emerald-500/30 bg-emerald-500/10", isWhatsApp: true },
+  { id: "booking", icon: Calendar, position: "left-[0%] bottom-[28%] sm:left-[4%] sm:bottom-[30%]", floatClass: "hero-float hero-float-delay-2", colors: "border-purple-500/30 bg-purple-500/10", iconColor: "text-purple-300" },
+  { id: "dashboard", icon: LayoutDashboard, position: "right-[0%] bottom-[26%] sm:right-[4%] sm:bottom-[28%]", floatClass: "hero-float hero-float-delay-3", colors: "border-blue-500/30 bg-blue-500/10", iconColor: "text-blue-300" },
+  { id: "ig", icon: Instagram, position: "left-1/2 bottom-[4%] -translate-x-1/2 sm:bottom-[6%]", floatClass: "hero-float hero-float-delay-4", colors: "border-pink-500/30 bg-pink-500/10", iconColor: "text-pink-300" },
 ];
 
 export function HeroVisual() {
+  const { t } = useLanguage();
+  const v = t.hero.visual;
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 24 }}
@@ -87,12 +45,13 @@ export function HeroVisual() {
       <div className="hero-glow pointer-events-none absolute inset-0" />
 
       <div className="relative mx-auto aspect-[4/5] max-h-[420px] w-full sm:max-h-[480px]">
-        {orbitCards.map((card) => {
+        {orbitLayout.map((card) => {
+          const copy = v.orbit[card.id];
           const Icon = card.icon;
           return (
             <div
               key={card.id}
-              className={`absolute z-20 ${card.position} ${card.floatClass}`}
+              className={`absolute z-20 max-w-[46%] ${card.position} ${card.floatClass}`}
             >
               <div
                 className={`flex items-center gap-2 rounded-xl border px-2.5 py-2 sm:gap-2.5 sm:px-3 sm:py-2.5 ${card.colors}`}
@@ -109,11 +68,11 @@ export function HeroVisual() {
                   )}
                 </div>
                 <div className="min-w-0">
-                  <p className="text-[10px] font-semibold text-white sm:text-xs">
-                    {card.label}
+                  <p className="text-[10px] font-semibold leading-tight text-white sm:text-xs">
+                    {copy.label}
                   </p>
-                  <p className="text-[9px] text-slate-400 sm:text-[10px]">
-                    {card.sub}
+                  <p className="text-[9px] leading-tight text-slate-400 sm:text-[10px]">
+                    {copy.sub}
                   </p>
                 </div>
               </div>
@@ -130,21 +89,21 @@ export function HeroVisual() {
                   <Bot className="h-3.5 w-3.5 text-indigo-200" />
                 </div>
                 <span className="text-[10px] font-semibold text-white sm:text-xs">
-                  SalesGhost AI
+                  {v.phoneBrand}
                 </span>
               </div>
             </div>
             <div className="space-y-1.5 p-3">
               <div className="rounded-lg bg-indigo-500/20 px-2 py-1.5 text-[9px] leading-snug text-indigo-100 sm:text-[10px]">
-                Hi — how can we help grow your business today?
+                {v.phoneGreeting}
               </div>
               <div className="ml-auto max-w-[88%] rounded-lg bg-white/10 px-2 py-1.5 text-[9px] text-slate-300 sm:text-[10px]">
-                Book a demo →
+                {v.phoneCta}
               </div>
               <div className="mt-2 flex items-center gap-1 border-t border-white/[0.06] pt-2">
-                <BarChart3 className="h-3 w-3 text-purple-400" />
-                <span className="text-[8px] text-slate-500 sm:text-[9px]">
-                  +34% conversion · live
+                <BarChart3 className="h-3 w-3 shrink-0 text-purple-400" />
+                <span className="text-[8px] leading-tight text-slate-500 sm:text-[9px]">
+                  {v.phoneMetric}
                 </span>
               </div>
             </div>
